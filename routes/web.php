@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
 Route::get('/', function () {
-    return view('welcome');
+    Log::debug('Log Activated');
+    return view('login');
 });
+
+
+
+
+Route::get('/user-page', function () {
+    return view('user-page');
+});
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+
+Route::get('/register', [PostController::class, 'index']);
+
+// POST Data
+Route::post('/register-data', [PostController::class, 'store']);
