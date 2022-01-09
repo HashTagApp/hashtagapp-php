@@ -121,8 +121,13 @@ class login extends Controller
 
     function logout()
     {
-        Auth::logout();
-        return redirect('main');
+
+        session()->forget('LoggedUser');
+        session()->forget('status');
+        session()->forget('loginTrue');
+
+        return redirect('/')->with('status', 'You have successfully logged out');
+
     }
 
 

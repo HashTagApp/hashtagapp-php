@@ -46,5 +46,7 @@ Route::post('/main/logout', [login::class, 'logout']);
 
 Route::get('/welcome', [login::class, 'successlogin']);
 
+Route::get('/logout', [login::class, 'logout']);
+
 
 

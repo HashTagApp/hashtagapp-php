@@ -182,7 +182,7 @@
                 <div class="card bg-transparent-card border-0 d-block mt-3">
                     <h4 class="d-inline font-xssss mont-font fw-700">Logout</h4>
                     <div class="d-inline float-right mt-1">
-                        <label class="toggle toggle-dark"><a href="" >Logout</a> </label>
+                        <label class="toggle toggle-dark"><a href="{{url('/logout')}}" >Logout</a> </label>
                     </div>
                 </div>
 
