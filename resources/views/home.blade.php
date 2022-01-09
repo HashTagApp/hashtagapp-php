@@ -25,6 +25,7 @@
 
 <div class="preloader"></div>
 
+@section('content')
 
 <div class="main-wrapper">
 
@@ -53,6 +54,7 @@
         <a href="#" class="p-2 text-center ms-auto menu-icon" id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false"><span class="dot-count bg-warning"></span><i class="feather-bell font-xl text-current"></i></a>
         <div class="dropdown-menu dropdown-menu-end p-4 rounded-3 border-0 shadow-lg" aria-labelledby="dropdownMenu3">
 
+            <h3>{{$username}}</h3>
             <h4 class="fw-700 font-xss mb-4">Notification</h4>
             <div class="card bg-transparent-card w-100 border-0 ps-5 mb-3">
                 <img src="images/user-8.png" alt="user" class="w40 position-absolute left-0">
@@ -174,6 +176,13 @@
                     <h4 class="d-inline font-xssss mont-font fw-700">Dark Mode</h4>
                     <div class="d-inline float-right mt-1">
                         <label class="toggle toggle-dark"><input type="checkbox"><span class="toggle-icon"></span></label>
+                    </div>
+                </div>
+
+                <div class="card bg-transparent-card border-0 d-block mt-3">
+                    <h4 class="d-inline font-xssss mont-font fw-700">Logout</h4>
+                    <div class="d-inline float-right mt-1">
+                        <label class="toggle toggle-dark"><a href="" >Logout</a> </label>
                     </div>
                 </div>
 

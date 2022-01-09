@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
 
 
@@ -47,20 +48,41 @@
                 <div class="card shadow-none border-0 ms-auto me-auto login-card">
                     <div class="card-body rounded-0 text-left">
                         <h2 class="fw-700 display1-size display2-md-size mb-3">Login into <br>your account</h2>
-                        <form>
+
+                        @if (count($errors) > 0)
+                            <div class = "alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+
+
+                            </div>
+                        @endif
+
+                        <form method="post" action="{{ url('/main/checklogin') }}">
 
                             @if(session('status'))
                                 <div class="alert alert-success">
                                     {{ session('status') }}
                                 </div>
                             @endif
+                                @if(session('ErrorMessages'))
+                                    <div class="alert alert-danger">
+                                        {{ session('ErrorMessages') }}
+                                    </div>
+                                @endif
 
+
+                                @csrf
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-email text-grey-500 pe-0"></i>
-                                <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
+                                <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address"name="email" title="name" >
                             </div>
                             <div class="form-group icon-input mb-1">
-                                <input type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
+                                <input type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password" id="id_password" name="password" title="password">
+                                <i class="far fa-eye" id="togglePassword" style="margin-left: 299px;  cursor: pointer; display: block"></i>
                                 <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                             </div>
                             <div class="form-check text-left mb-3">
@@ -68,12 +90,14 @@
                                 <label class="form-check-label font-xsss text-grey-500" for="exampleCheck5">Remember me</label>
                                 <a href="forgot.html" class="fw-600 font-xsss text-grey-700 mt-1 float-right">Forgot your Password?</a>
                             </div>
-                        </form>
+
 
                         <div class="col-sm-12 p-0 text-left">
-                            <div class="form-group mb-1"><a href="/home" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 " style="color: #ebb22d">Login</a></div>
+                            <div class="form-group mb-1"><button class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 " style="color: #ebb22d">Login</button></div>
                             <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <a href="/register" class="fw-700 ms-1" style="color: #5d5093">Register</a></h6>
                         </div>
+
+                        </form>
                         <div class="col-sm-12 p-0 text-center mt-2">
 
                             <h6 class="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">Or, Sign in with your social account </h6>
@@ -86,6 +110,8 @@
         </div>
     </div>
 
+
+
     <!-- Modal Login -->
     <div class="modal bottom fade" style="overflow-y: scroll;" id="Modallogin" tabindex="-1" role="dialog">
          <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,14 +121,14 @@
                     <div class="card shadow-none rounded-0 w-100 p-2 pt-3 border-0">
                         <div class="card-body rounded-0 text-left p-3">
                             <h2 class="fw-700 display1-size display2-md-size mb-4">Login into <br>your account</h2>
-                            <form>
+                            <form method="post" action="{{url('login-data')}}">
 
                                 <div class="form-group icon-input mb-3">
                                     <i class="font-sm ti-email text-grey-500 pe-0"></i>
                                     <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Your Email Address">
                                 </div>
                                 <div class="form-group icon-input mb-1">
-                                    <input type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password">
+                                    <input type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Password" >
                                     <i class="font-sm ti-lock text-grey-500 pe-0"></i>
                                 </div>
                                 <div class="form-check text-left mb-3">
@@ -113,7 +139,7 @@
                             </form>
 
                             <div class="col-sm-12 p-0 text-left">
-                                <div class="form-group mb-1"><a href="#" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</a></div>
+                                <div class="form-group mb-1"><button class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Login</button></div>
                                 <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Dont have account <a href="#" class="fw-700 ms-1">Register</a></h6>
                             </div>
                             <div class="col-sm-12 p-0 text-center mt-3 ">
@@ -185,6 +211,22 @@
 
     <script src="js/plugin.js"></script>
     <script src="js/scripts.js"></script>
+
+<script>
+
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#id_password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+
+</script>
 
 </body>
 

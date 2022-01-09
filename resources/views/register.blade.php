@@ -55,9 +55,18 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
+
+
                             </div>
                         @endif
                         <form  method="post" action="{{url('register-data')}}">
+
+                            @if(session('ErrorMessages'))
+                                <div class="alert alert-danger">
+                                    {{ session('ErrorMessages') }}
+                                </div>
+                            @endif
+
                             @csrf
                             <div class="form-group icon-input mb-3">
                                 <i class="font-sm ti-user text-grey-500 pe-0"></i>
